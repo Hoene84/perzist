@@ -31,4 +31,9 @@
         </plugins>
     </build>
 
+    <scm>
+        <connection>scm:git:git://git.imis.intra/ishop-wf-backup/ishop-wf-backup.git</connection>
+        <developerConnection>scm:git:file://${user.dir}/</developerConnection>
+    </scm>
+
 </project>
