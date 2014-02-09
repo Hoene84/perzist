@@ -2,8 +2,8 @@ package ch.hoene.perzist.android;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
-import ch.hoene.perzist.framework.mapping.Mapping;
-import ch.hoene.perzist.framework.query.OperationInsert;
+import ch.hoene.perzist.access.mapping.Mapping;
+import ch.hoene.perzist.access.query.OperationInsert;
 import ch.hoene.perzist.source.relational.Table;
 
 

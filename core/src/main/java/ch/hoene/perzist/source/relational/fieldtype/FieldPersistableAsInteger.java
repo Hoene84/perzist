@@ -1,6 +1,6 @@
 package ch.hoene.perzist.source.relational.fieldtype;
 
-import ch.hoene.perzist.framework.creator.Creator;
+import ch.hoene.perzist.access.creator.Creator;
 import ch.hoene.perzist.source.relational.FieldPersistable;
 
 

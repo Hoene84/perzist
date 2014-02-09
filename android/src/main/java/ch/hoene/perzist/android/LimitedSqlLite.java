@@ -1,7 +1,7 @@
 package ch.hoene.perzist.android;
 
 import android.database.Cursor;
-import ch.hoene.perzist.framework.creator.Creator;
+import ch.hoene.perzist.access.creator.Creator;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.Limited;
 

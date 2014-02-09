@@ -1,6 +1,6 @@
 package ch.hoene.perzist.source.sql;
 
-import ch.hoene.perzist.framework.mapping.Mapping;
+import ch.hoene.perzist.access.mapping.Mapping;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.query.Limit;
 import ch.hoene.perzist.source.sql.query.Select;

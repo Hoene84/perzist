@@ -1,8 +1,8 @@
 package ch.hoene.perzist.android;
 
 import android.database.Cursor;
-import ch.hoene.perzist.framework.creator.CreatorForList;
-import ch.hoene.perzist.framework.creator.ResultCreator;
+import ch.hoene.perzist.access.creator.CreatorForList;
+import ch.hoene.perzist.access.creator.ResultCreator;
 
 
 

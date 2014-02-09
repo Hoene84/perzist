@@ -1,6 +1,6 @@
 package ch.hoene.perzist.source.sql.query;
 
-import ch.hoene.perzist.framework.sort.SortOrder;
+import ch.hoene.perzist.access.sort.SortOrder;
 import ch.hoene.perzist.source.relational.Field;
 
 
