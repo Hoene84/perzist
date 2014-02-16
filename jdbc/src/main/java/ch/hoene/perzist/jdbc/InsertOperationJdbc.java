@@ -5,6 +5,7 @@ import ch.hoene.perzist.access.query.OperationInsert;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.query.Insert;
 import ch.hoene.perzist.source.sql.query.MultiValue;
+import ch.hoene.perzist.source.sql.query.Sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,12 +24,16 @@ public class InsertOperationJdbc<I> extends OperationJdbc implements OperationIn
 
     public int insert(final Connection db, final I instance)
     {
-        final int[] result = new int[1];
+        final Sql sql = new Insert(mapping.get(), new MultiValue(mapping.create(instance)));
         return openStatement(db, new JdbcCallback<Integer>() {
             @Override
             public Integer connected(PreparedStatement stmt) throws SQLException {
+                for(int i = 0; i < sql.getParams().size(); i++)
+                {
+                    stmt.setObject(i + 1, sql.getParams().get(i));
+                }
                 return stmt.executeUpdate();
             }
-        }, new Insert(mapping.get(), new MultiValue(mapping.create(instance))));
+        }, sql);
     }
 }

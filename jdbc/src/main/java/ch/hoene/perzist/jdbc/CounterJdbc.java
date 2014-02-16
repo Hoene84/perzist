@@ -16,11 +16,11 @@ public class CounterJdbc extends Counter<ResultSet>
 
     public Integer create(ResultSet queryResult)
     {
-      try {
-            queryResult.first();
-        return queryResult.getInt(0);
-      } catch (SQLException e) {
-          throw new RuntimeException(e);
-      }
-  }
+        try {
+            queryResult.next();
+            return queryResult.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

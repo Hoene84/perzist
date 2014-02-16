@@ -26,7 +26,7 @@ public class ReadOperationJdbc<I> extends OperationJdbc implements OperationRead
             public I connected(PreparedStatement stmt) throws SQLException {
                 for(int i = 0; i < select.getParams().size(); i++)
                 {
-                    stmt.setString(i + 1, select.getParams().get(i).toString());
+                    stmt.setObject(i + 1, select.getParams().get(i));
                 }
                 return query.create(stmt.executeQuery());
             }

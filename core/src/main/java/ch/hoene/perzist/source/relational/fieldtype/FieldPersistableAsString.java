@@ -7,8 +7,7 @@ import ch.hoene.perzist.source.relational.FieldPersistable;
 
 public class FieldPersistableAsString<RESULT> extends FieldPersistable<RESULT, String>
 {
-    public FieldPersistableAsString(String name,
-                                                  Creator<String, RESULT> mapping)
+    public FieldPersistableAsString(String name, Creator<String, RESULT> mapping)
     {
         super(name, mapping);
     }
