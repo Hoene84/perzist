@@ -31,7 +31,13 @@ public abstract class CreatorForList<TARGET, RESULT, S, M> implements ResultCrea
         return result;
     }
 
+    /**
+     * @return if the Source has another row to gt with next
+     */
     protected abstract boolean hasNext(M queryResult);
 
+    /**
+     * @return a Source positioned at next porsition
+     */
     protected abstract S next(M queryResult);
 }

@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface SqlPart extends SqlFragment
 {
-	List<Object> getParams();
+	List<? extends Object> getParams();
 }

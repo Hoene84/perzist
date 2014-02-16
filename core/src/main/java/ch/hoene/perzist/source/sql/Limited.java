@@ -5,6 +5,8 @@ import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.query.Limit;
 import ch.hoene.perzist.source.sql.query.Select;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,4 +30,10 @@ public abstract class Limited<I, FROM>  implements Mapping<Select, List<I>, FROM
 		select.setLimit(new Limit(limit));
 		return select;
 	}
+
+    public List<I> create(FROM from)
+    {
+        List<I> result = first.create(from);
+        return result == null ? new ArrayList<I>() : result;
+    }
 }
