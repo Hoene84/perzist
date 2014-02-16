@@ -9,16 +9,16 @@ package ch.hoene.perzist.access.db;
  */
 public interface Database<Q, C, D>
 {
-	abstract <I> I read(Q query, DbReadOp<I, C> readOp);
-	abstract <I> int write(DbWriteOp<D, I> writer, I instance);
+    abstract <I> I read(Q query, DbReadOp<I, C> readOp);
+    abstract <I> int write(DbWriteOp<D, I> writer, I instance);
 
-	interface DbReadOp<I, C>
-	{
-		public I read(C db);
-	}
+    interface DbReadOp<I, C>
+    {
+        public I read(C db);
+    }
 
-	interface DbWriteOp<D, I>
-	{
-		public int write(D target, I instance);
-	}
+    interface DbWriteOp<D, I>
+    {
+        public int write(D target, I instance);
+    }
 }

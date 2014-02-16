@@ -8,5 +8,5 @@ package ch.hoene.perzist.access.query;
  */
 public interface OperationInsert<D, I>
 {
-	int insert(D db, I instance);
+    int insert(D db, I instance);
 }

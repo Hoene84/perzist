@@ -8,7 +8,7 @@ import java.util.Set;
 
 public interface View extends Serializable
 {
-	public Set<? extends Table> getTables();
+    public Set<? extends Table> getTables();
 
-	public List<Field> getFields();
+    public List<Field> getFields();
 }

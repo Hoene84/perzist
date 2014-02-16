@@ -7,9 +7,9 @@ package ch.hoene.perzist.access.filter;
  */
 public interface FilterVisitor<PROJECTION, R>
 {
-	<T, Z> R visit(FieldFilter<? super PROJECTION, Z, T> fieldFilter);
+    <T, Z> R visit(FieldFilter<? super PROJECTION, Z, T> fieldFilter);
 
-	R visit(FilterSet<? super PROJECTION> filterSet);
+    R visit(FilterSet<? super PROJECTION> filterSet);
 
-	R visit(NotFilter<? super PROJECTION> notFilter);
+    R visit(NotFilter<? super PROJECTION> notFilter);
 }

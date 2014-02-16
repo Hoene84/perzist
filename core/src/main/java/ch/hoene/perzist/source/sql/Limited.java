@@ -13,23 +13,23 @@ import java.util.List;
 
 public abstract class Limited<I, FROM>  implements Mapping<Select, List<I>, FROM>
 {
-	private final int limit;
-	protected final First<List<I>, FROM> first;
+    private final int limit;
+    protected final First<List<I>, FROM> first;
 
-	public Limited(Table table,
+    public Limited(Table table,
             First<List<I>, FROM> first,
-						int limit)
-	{
-		this.limit = limit;
+                        int limit)
+    {
+        this.limit = limit;
       this.first = first;
-	}
+    }
 
-	public Select get()
-	{
-		Select select = first.get();
-		select.setLimit(new Limit(limit));
-		return select;
-	}
+    public Select get()
+    {
+        Select select = first.get();
+        select.setLimit(new Limit(limit));
+        return select;
+    }
 
     public List<I> create(FROM from)
     {

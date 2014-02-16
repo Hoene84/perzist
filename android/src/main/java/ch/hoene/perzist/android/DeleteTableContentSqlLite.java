@@ -8,9 +8,9 @@ import ch.hoene.perzist.source.relational.Table;
 
 public class DeleteTableContentSqlLite implements OperationDelete<SQLiteDatabase, Table>
 {
-	public int delete(SQLiteDatabase db,
-							 Table target)
-	{
-		return db.delete(target.getName(), null, null);
-	}
+    public int delete(SQLiteDatabase db,
+                             Table target)
+    {
+        return db.delete(target.getName(), null, null);
+    }
 }

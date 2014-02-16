@@ -11,20 +11,20 @@ import java.util.List;
 
 public class Drop implements Sql
 {
-	private final String sql;
+    private final String sql;
 
-	public Drop(Table table)
-	{
-		this.sql = "DROP TABLE " + table.getName();
-	}
+    public Drop(Table table)
+    {
+        this.sql = "DROP TABLE " + table.getName();
+    }
 
-	public String toSql()
-	{
-		return sql;
-	}
+    public String toSql()
+    {
+        return sql;
+    }
 
-	public List<Object> getParams()
-	{
-		return new ArrayList<Object>();
-	}
+    public List<Object> getParams()
+    {
+        return new ArrayList<Object>();
+    }
 }

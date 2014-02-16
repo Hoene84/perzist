@@ -6,10 +6,10 @@ package ch.hoene.perzist.source.sql.query;
 
 public class OrderClauseRandom implements OrderClause
 {
-	public String toSql()
-	{
-		return " RANDOM() ";
-	}
+    public String toSql()
+    {
+        return " RANDOM() ";
+    }
 
     public OrderClause apply(OrderClause orderClause)
     {

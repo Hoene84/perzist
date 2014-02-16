@@ -18,8 +18,8 @@ public class InsertOperationSqlLite<I> implements OperationInsert<SQLiteDatabase
     }
 
     public int insert(final SQLiteDatabase db, I instance)
-	{
-		long newRowId = db.insert(mapping.get().getName(), null, mapping.create(instance));
-		return (newRowId < 0) ? 0 : 1;
-	}
+    {
+        long newRowId = db.insert(mapping.get().getName(), null, mapping.create(instance));
+        return (newRowId < 0) ? 0 : 1;
+    }
 }

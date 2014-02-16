@@ -7,10 +7,10 @@ package ch.hoene.perzist.source.relational.fieldtype;
  */
 public interface FieldVisitor<R, RESULT>
 {
-	R visit(FieldPersistableAsString<? super RESULT> field);
+    R visit(FieldPersistableAsString<? super RESULT> field);
 
-	R visit(FieldPersistableAsDouble<? super RESULT> field);
+    R visit(FieldPersistableAsDouble<? super RESULT> field);
 
-	R visit(FieldPersistableAsInteger<? super RESULT> field);
+    R visit(FieldPersistableAsInteger<? super RESULT> field);
 
 }

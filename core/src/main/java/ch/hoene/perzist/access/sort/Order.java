@@ -7,5 +7,5 @@ package ch.hoene.perzist.access.sort;
  */
 public interface Order<PROJECTION>
 {
-	<R> R accept(OrderVisitor<? extends PROJECTION, R> visitor);
+    <R> R accept(OrderVisitor<? extends PROJECTION, R> visitor);
 }

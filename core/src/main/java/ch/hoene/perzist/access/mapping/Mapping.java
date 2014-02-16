@@ -14,6 +14,6 @@ import ch.hoene.perzist.access.creator.Creator;
  */
 public interface Mapping<Q, TO, FROM> extends Creator<TO, FROM>, QueryGenerator<Q>
 {
-	Q get();
-	TO create(FROM queryResult);
+    Q get();
+    TO create(FROM queryResult);
 }

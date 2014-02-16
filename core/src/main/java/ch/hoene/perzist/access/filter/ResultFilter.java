@@ -9,5 +9,5 @@ import java.util.Set;
  */
 public interface ResultFilter<I>
 {
-	Set<I> apply(Set<I> results);
+    Set<I> apply(Set<I> results);
 }

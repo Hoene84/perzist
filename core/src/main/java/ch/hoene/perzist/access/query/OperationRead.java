@@ -9,7 +9,7 @@ package ch.hoene.perzist.access.query;
  */
 public interface OperationRead<Q, R, I>
 {
-	I map(R dbResult);
+    I map(R dbResult);
 
-	Q get();
+    Q get();
 }

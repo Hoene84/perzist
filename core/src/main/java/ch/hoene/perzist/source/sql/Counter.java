@@ -9,15 +9,15 @@ import ch.hoene.perzist.source.sql.query.Sql;
 
 public abstract class Counter<C> implements Mapping<Select, Integer, C>
 {
-	private final Table table;
+    private final Table table;
 
-	public Counter(Table table)
-	{
-		this.table = table;
-	}
+    public Counter(Table table)
+    {
+        this.table = table;
+    }
 
-	public Select get()
-	{
-		return new Select(table, Select.SelectMethod.COUNT, Sql.FIELD_PSEUDO_STAR);
-	}
+    public Select get()
+    {
+        return new Select(table, Select.SelectMethod.COUNT, Sql.FIELD_PSEUDO_STAR);
+    }
 }

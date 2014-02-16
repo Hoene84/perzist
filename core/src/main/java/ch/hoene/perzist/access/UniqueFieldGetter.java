@@ -6,5 +6,5 @@ import ch.hoene.perzist.source.relational.Field;
 
 public interface UniqueFieldGetter<I>
 {
-	Field getUniqueFields();
+    Field getUniqueFields();
 }

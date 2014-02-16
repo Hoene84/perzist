@@ -9,8 +9,8 @@ import ch.hoene.perzist.access.sort.OrderVisitor;
 
 public abstract class Query<QUERY, WHERE, ORDER, RESULT, CURSOR, TARGET, PROJECTION> implements FilterVisitor<PROJECTION, WHERE>, OperationRead<QUERY, CURSOR, RESULT>, OrderVisitor<PROJECTION, ORDER>
 {
-	private final Filter<? super PROJECTION> filter;
-	private final Order<? super PROJECTION> order;
+    private final Filter<? super PROJECTION> filter;
+    private final Order<? super PROJECTION> order;
 
     protected Query()
     {
@@ -31,18 +31,18 @@ public abstract class Query<QUERY, WHERE, ORDER, RESULT, CURSOR, TARGET, PROJECT
     }
 
     public Query(Filter<? super PROJECTION> filter, Order<? super PROJECTION> order)
-	{
-		this.filter = filter;
-		this.order = order;
-	}
+    {
+        this.filter = filter;
+        this.order = order;
+    }
 
     /**
      * @return can be null
      */
-	public Filter<? super PROJECTION> getFilter()
-	{
-		return filter;
-	}
+    public Filter<? super PROJECTION> getFilter()
+    {
+        return filter;
+    }
 
     /**
      * @return can be null

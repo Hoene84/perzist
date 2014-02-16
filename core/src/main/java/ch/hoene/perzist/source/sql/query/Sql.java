@@ -10,5 +10,5 @@ import ch.hoene.perzist.source.relational.Field;
 
 public interface Sql extends SqlPart
 {
-	public static final Field FIELD_PSEUDO_STAR = new Field("*");
+    public static final Field FIELD_PSEUDO_STAR = new Field("*");
 }
