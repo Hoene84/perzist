@@ -35,7 +35,7 @@ import java.util.List;
  * @author Simon Honegger (Hoene84)
  */
 
-public abstract class DatabaseSqlLite implements Database<Select, Cursor, SQLiteDatabase> {
+public abstract class DatabaseSqlLite implements Database<Select, SQLiteDatabase> {
 
     final SQLiteDatabase db;
 
@@ -54,7 +54,7 @@ public abstract class DatabaseSqlLite implements Database<Select, Cursor, SQLite
     {
         return OperationExecutor.execute(
                 this,
-                new QuerySqlite<TABLE, TABLE, Integer>(filter, new CounterSqlite(table)));
+                new ReadOperationSqlLite<Integer>(new QuerySqlite<TABLE, TABLE, Integer>(filter, new CounterSqlite(table))));
     }
 
     protected <RESULT, TARGET extends View, PROJECTION extends View, Z> List<RESULT> getList(
@@ -66,10 +66,12 @@ public abstract class DatabaseSqlLite implements Database<Select, Cursor, SQLite
     {
         return OperationExecutor.execute(
                 this,
-                new QuerySqlite<PROJECTION, TARGET, List<RESULT>>(
-                        filter,
-                        FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(SortOrder.ASC, sortFields),
-                        new MappingDistinctSqlLite<TARGET, PROJECTION,  RESULT>(view, new CreatorForListSqlite<TARGET, RESULT>(creator), target)
+                new ReadOperationSqlLite<List<RESULT>>(
+                    new QuerySqlite<PROJECTION, TARGET, List<RESULT>>(
+                            filter,
+                            FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(SortOrder.ASC, sortFields),
+                            new MappingDistinctSqlLite<TARGET, PROJECTION,  RESULT>(view, new CreatorForListSqlite<TARGET, RESULT>(creator), target)
+                    )
                 )
         );
     }
@@ -87,30 +89,9 @@ public abstract class DatabaseSqlLite implements Database<Select, Cursor, SQLite
         OperationExecutor.execute(this, new DeleteTableContentSqlLite(), table);
     }
 
-    public <I> I read(Select query,
-                      Database.DbReadOp<I, Cursor> readOp)
+    public <I> I read(Database.DbReadOp<I, SQLiteDatabase> readOp)
     {
-        Cursor cursor = null;
-        try
-        {
-            String[] params = new String[query.getParams().size()];
-            int i = 0;
-
-            for (Object param : query.getParams())
-            {
-                params[i++] = param.toString();
-            }
-
-            cursor = db.rawQuery(query.toSql(), params);
-
-            return readOp.read(cursor);
-        } finally
-        {
-            if (cursor != null)
-            {
-                cursor.close();
-            }
-        }
+        return readOp.read(db);
     }
 
     public <I> int write(DbWriteOp<SQLiteDatabase, I> writeOp,

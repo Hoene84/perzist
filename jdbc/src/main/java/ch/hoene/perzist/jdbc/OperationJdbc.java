@@ -1,18 +1,20 @@
 package ch.hoene.perzist.jdbc;
 
+import ch.hoene.perzist.source.sql.query.Sql;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class OperationJdbc {
 
-    protected void openStatement(final Connection db, JdbcCallback callback)
+    protected <R> R openStatement(final Connection db, JdbcCallback<R> callback, Sql sql)
     {
-        Statement stmt = null;
+        PreparedStatement stmt = null;
         try
         {
-            stmt = db.createStatement();
-            callback.connected(stmt);
+            stmt = db.prepareStatement(sql.toSql());
+            return callback.connected(stmt);
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
@@ -29,9 +31,9 @@ public class OperationJdbc {
         }
     }
 
-    protected interface JdbcCallback
+    protected interface JdbcCallback<R>
     {
-        public void connected(Statement stmt) throws SQLException;
+        public R connected(PreparedStatement stmt) throws SQLException;
     }
 
 }

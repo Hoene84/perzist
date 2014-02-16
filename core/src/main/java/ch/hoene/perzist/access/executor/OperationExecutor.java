@@ -9,16 +9,16 @@ import ch.hoene.perzist.access.query.OperationRead;
 
 public abstract class OperationExecutor
 {
-    public static <I, Q, C> I execute(Database<Q, C, ?> db, final OperationRead<Q, C, I> operation){
-        return db.read(operation.get(), new Database.DbReadOp<I, C>(){
-            public I read(C c)
+    public static <I, Q, D> I execute(Database<Q, D> db, final OperationRead<D, I> operation){
+        return db.read(new Database.DbReadOp<I, D>(){
+            public I read(D db)
             {
-                return operation.map(c);
+                return operation.read(db);
             }
         });
     }
 
-    public static <D, I> int execute(Database<?, ?, D> db, final OperationInsert<D, I> operation, final I instance){
+    public static <D, I> int execute(Database<?, D> db, final OperationInsert<D, I> operation, final I instance){
         return db.write(new Database.DbWriteOp<D, I>()
         {
             public int write(D target,
@@ -29,7 +29,7 @@ public abstract class OperationExecutor
         }, instance);
     }
 
-    public static <D, T> void execute(Database<?, ?, D> db, final OperationDelete<D, T> operation, T target){
+    public static <D, T> void execute(Database<?, D> db, final OperationDelete<D, T> operation, T target){
         db.write(new Database.DbWriteOp<D, T>()
         {
             public int write(D target,

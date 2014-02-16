@@ -7,6 +7,7 @@ import ch.hoene.perzist.source.sql.query.Insert;
 import ch.hoene.perzist.source.sql.query.MultiValue;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,13 +16,11 @@ public class DeleteTableContentJdbc extends OperationJdbc implements OperationDe
 {
     public int delete(Connection db, final Table target)
     {
-        final int[] result = new int[1];
-        openStatement(db, new JdbcCallback() {
+        return openStatement(db, new JdbcCallback<Integer>() {
             @Override
-            public void connected(Statement stmt) throws SQLException {
-                result[0] = stmt.executeUpdate(new Drop(target).toSql());
+            public Integer connected(PreparedStatement stmt) throws SQLException {
+                return stmt.executeUpdate();
             }
-        });
-        return result[0];
+        }, new Drop(target));
     }
 }

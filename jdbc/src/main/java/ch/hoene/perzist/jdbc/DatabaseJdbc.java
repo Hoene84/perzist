@@ -38,7 +38,7 @@ import java.util.List;
  * @author Simon Honegger (Hoene84)
  */
 
-public abstract class DatabaseJdbc implements Database<Select, ResultSet, Connection> {
+public abstract class DatabaseJdbc implements Database<Select, Connection> {
 
     final Connection db;
 
@@ -61,7 +61,7 @@ public abstract class DatabaseJdbc implements Database<Select, ResultSet, Connec
     {
         return OperationExecutor.execute(
                 this,
-                new QueryJdbc<TABLE, TABLE, Integer>(filter, new CounterJdbc(table)));
+                new ReadOperationJdbc<Integer>(new QueryJdbc<TABLE, TABLE, Integer>(filter, new CounterJdbc(table))));
     }
 
     protected <RESULT, TARGET extends View, PROJECTION extends View, Z> List<RESULT> getList(
@@ -73,10 +73,12 @@ public abstract class DatabaseJdbc implements Database<Select, ResultSet, Connec
     {
         return OperationExecutor.execute(
                 this,
-                new QueryJdbc<PROJECTION, TARGET, List<RESULT>>(
-                        filter,
-                        FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(SortOrder.ASC, sortFields),
-                        new MappingDistinctJdbc<TARGET, PROJECTION,  RESULT>(view, new CreatorForListJdbc<TARGET, RESULT>(creator), target)
+                new ReadOperationJdbc<List<RESULT>>(
+                    new QueryJdbc<PROJECTION, TARGET, List<RESULT>>(
+                            filter,
+                            FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(SortOrder.ASC, sortFields),
+                            new MappingDistinctJdbc<TARGET, PROJECTION,  RESULT>(view, new CreatorForListJdbc<TARGET, RESULT>(creator), target)
+                    )
                 )
         );
     }
@@ -94,34 +96,9 @@ public abstract class DatabaseJdbc implements Database<Select, ResultSet, Connec
         OperationExecutor.execute(this, new DeleteTableContentJdbc(), table);
     }
 
-    public <I> I read(Select query,
-                      DbReadOp<I, ResultSet> readOp)
+    public <I> I read(DbReadOp<I, Connection> readOp)
     {
-        PreparedStatement stmt = null;
-        try
-        {
-            stmt = db.prepareStatement(query.toSql());
-            for(int i = 0; i < query.getParams().size(); i++)
-            {
-                stmt.setString(i + 1, query.getParams().get(i).toString());
-            }
-            return readOp.read(stmt.executeQuery());
-        }
-        catch (SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
-        finally
-        {
-            if (stmt != null)
-            {
-                try {
-                    stmt.close();
-                } catch (SQLException e) {
-                    //ignore
-                }
-            }
-        }
+        return readOp.read(db);
     }
 
     public <I> int write(DbWriteOp<Connection, I> writeOp,

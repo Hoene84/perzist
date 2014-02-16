@@ -1,6 +1,7 @@
 package ch.hoene.perzist.android;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import ch.hoene.perzist.access.filter.FieldFilter;
 import ch.hoene.perzist.access.filter.Filter;
 import ch.hoene.perzist.access.filter.FilterSet;

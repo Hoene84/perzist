@@ -7,6 +7,7 @@ import ch.hoene.perzist.source.sql.query.Insert;
 import ch.hoene.perzist.source.sql.query.MultiValue;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
@@ -24,13 +25,11 @@ public class InsertOperationJdbc<I> extends OperationJdbc implements OperationIn
     public int insert(final Connection db, final I instance)
     {
         final int[] result = new int[1];
-        openStatement(db, new JdbcCallback() {
+        return openStatement(db, new JdbcCallback<Integer>() {
             @Override
-            public void connected(Statement stmt) throws SQLException {
-                result[0] =
-                        stmt.executeUpdate(new Insert(mapping.get(), new MultiValue(mapping.create(instance))).toSql());
+            public Integer connected(PreparedStatement stmt) throws SQLException {
+                return stmt.executeUpdate();
             }
-        });
-        return result[0];
+        }, new Insert(mapping.get(), new MultiValue(mapping.create(instance))));
     }
 }

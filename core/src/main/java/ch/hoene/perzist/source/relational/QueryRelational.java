@@ -66,9 +66,9 @@ public class QueryRelational<PROJECTION, TARGET, RESULT, CURSOR> extends Query<S
         return sql;
     }
 
-    public RESULT map(final CURSOR cursor)
-    {
-        return mapping.create(cursor);
+    @Override
+    public RESULT create(CURSOR queryResult) {
+        return mapping.create(queryResult);
     }
 
     public <T, Z> WhereClause visit(FieldFilter<? super PROJECTION, Z, T> fieldFilter)
