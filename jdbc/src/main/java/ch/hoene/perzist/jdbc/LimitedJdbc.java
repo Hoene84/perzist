@@ -1,12 +1,10 @@
 package ch.hoene.perzist.jdbc;
 
-import ch.hoene.perzist.access.creator.Creator;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.First;
 import ch.hoene.perzist.source.sql.Limited;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 
 

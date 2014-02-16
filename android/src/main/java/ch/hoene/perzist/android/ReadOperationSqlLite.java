@@ -5,10 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import ch.hoene.perzist.access.query.OperationRead;
 import ch.hoene.perzist.source.sql.query.Select;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-
 
 public class ReadOperationSqlLite<I> implements OperationRead<SQLiteDatabase, I>
 {

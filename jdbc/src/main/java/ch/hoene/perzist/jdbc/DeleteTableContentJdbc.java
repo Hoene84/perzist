@@ -3,13 +3,10 @@ package ch.hoene.perzist.jdbc;
 import ch.hoene.perzist.access.query.OperationDelete;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.query.Drop;
-import ch.hoene.perzist.source.sql.query.Insert;
-import ch.hoene.perzist.source.sql.query.MultiValue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 
 public class DeleteTableContentJdbc extends OperationJdbc implements OperationDelete<Connection, Table>

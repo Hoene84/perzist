@@ -1,11 +1,8 @@
 package ch.hoene.perzist.source.sql.query;
 
-import ch.hoene.perzist.source.relational.Field;
 import ch.hoene.perzist.source.relational.Table;
-import ch.hoene.perzist.source.relational.View;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 

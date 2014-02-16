@@ -1,8 +1,6 @@
 package ch.hoene.perzist.source.sql.query;
 
 
-import ch.hoene.perzist.util.Shorty;
-
 import java.util.Arrays;
 import java.util.List;
 

@@ -5,7 +5,6 @@ import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.sql.query.Limit;
 import ch.hoene.perzist.source.sql.query.Select;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 

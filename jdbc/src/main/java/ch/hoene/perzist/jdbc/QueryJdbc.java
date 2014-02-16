@@ -4,9 +4,7 @@ import ch.hoene.perzist.access.filter.Filter;
 import ch.hoene.perzist.access.mapping.Mapping;
 import ch.hoene.perzist.access.sort.Order;
 import ch.hoene.perzist.source.relational.QueryRelational;
-import ch.hoene.perzist.source.sql.query.OrderClause;
 import ch.hoene.perzist.source.sql.query.Select;
-import ch.hoene.perzist.source.sql.query.WhereClause;
 
 import java.sql.ResultSet;
 

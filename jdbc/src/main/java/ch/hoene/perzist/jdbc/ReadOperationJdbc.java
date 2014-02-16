@@ -1,19 +1,11 @@
 package ch.hoene.perzist.jdbc;
 
-import ch.hoene.perzist.access.mapping.Mapping;
-import ch.hoene.perzist.access.query.OperationInsert;
 import ch.hoene.perzist.access.query.OperationRead;
-import ch.hoene.perzist.access.query.Query;
-import ch.hoene.perzist.source.relational.Table;
-import ch.hoene.perzist.source.sql.query.Insert;
-import ch.hoene.perzist.source.sql.query.MultiValue;
 import ch.hoene.perzist.source.sql.query.Select;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
 
 
 public class ReadOperationJdbc<I> extends OperationJdbc implements OperationRead<Connection, I>
