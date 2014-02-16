@@ -18,7 +18,7 @@ public abstract class OperationExecutor
         });
     }
 
-    public static <I, C, D, Q> int execute(Database<?, ?, D> db, final OperationInsert<D, I> operation, final I instance){
+    public static <D, I> int execute(Database<?, ?, D> db, final OperationInsert<D, I> operation, final I instance){
         return db.write(new Database.DbWriteOp<D, I>()
         {
             public int write(D target,
