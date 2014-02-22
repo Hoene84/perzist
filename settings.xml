@@ -1,0 +1,44 @@
+<settings>
+  <usePluginRegistry>true</usePluginRegistry>
+  <interactiveMode>true</interactiveMode>
+
+   <mirrors>
+	
+    <mirror>
+      <id>repo.maven.apache.org</id>
+      <url>http://repo.maven.apache.org/maven2/</url>
+      <mirrorOf>central</mirrorOf>
+      <!-- Australia, Queensland -->
+    </mirror>
+    <mirror>
+      <id>lsu.edu</id>
+      <url>http://ibiblio.lsu.edu/main/pub/packages/maven2</url>
+      <mirrorOf>central</mirrorOf>
+      <!-- United States, Louisiana -->
+     </mirror>
+    <mirror>
+      <id>ibiblio.net</id>
+      <url>http://www.ibiblio.net/pub/packages/maven2</url>
+      <mirrorOf>central</mirrorOf>
+      <!-- United States, North Carolina -->
+    </mirror>
+    <mirror>
+      <id>sateh.com</id>
+      <url>http://maven.sateh.com/repository</url>
+      <mirrorOf>central</mirrorOf>
+      <!-- The Netherlands, Amsterdam -->
+    </mirror>
+    <mirror>
+      <id>dotsrc.org</id>
+      <url>http://mirrors.dotsrc.org/maven2</url>
+      <mirrorOf>central</mirrorOf>
+      <!-- Denmark -->
+    </mirror>
+    <mirror>
+      <id>sunsite.dk</id>
+      <url>http://mirrors.sunsite.dk/maven2</url>
+      <mirrorOf>central</mirrorOf>
+      <!-- Denmark -->
+    </mirror>
+  </mirrors>
+</settings>
