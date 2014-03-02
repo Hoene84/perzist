@@ -12,11 +12,14 @@ import ch.hoene.perzist.access.mapping.Mapping;
 import ch.hoene.perzist.access.sort.FieldOrder;
 import ch.hoene.perzist.access.sort.SortOrder;
 import ch.hoene.perzist.source.relational.FieldPersistable;
+import ch.hoene.perzist.source.relational.FieldSortOrder;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.relational.View;
 import ch.hoene.perzist.source.sql.query.Select;
 
+import java.sql.ResultSet;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DatabaseSqlLite implements Database<Select, SQLiteDatabase> {
 
@@ -44,15 +47,24 @@ public abstract class DatabaseSqlLite implements Database<Select, SQLiteDatabase
             Filter<? super PROJECTION> filter,
             ResultCreator<TARGET, RESULT, Cursor> creator,
             PROJECTION view,
+            TARGET target)
+    {
+        return getList(filter, creator, view, target, new FieldSortOrder[]{});
+    }
+
+    protected <RESULT, TARGET extends View, PROJECTION extends View, Z> List<RESULT> getList(
+            Filter<? super PROJECTION> filter,
+            ResultCreator<TARGET, RESULT, Cursor> creator,
+            PROJECTION view,
             TARGET target,
-            FieldPersistable<? super RESULT, Z>... sortFields)
+            FieldSortOrder<? super RESULT, Z>... sortOrders)
     {
         return OperationExecutor.execute(
                 this,
                 new ReadOperationSqlLite<List<RESULT>>(
                     new QuerySqlite<PROJECTION, TARGET, List<RESULT>>(
                             filter,
-                            FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(SortOrder.ASC, sortFields),
+                            FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(sortOrders),
                             new MappingDistinctSqlLite<TARGET, PROJECTION,  RESULT>(view, new CreatorForListSqlite<TARGET, RESULT>(creator), target)
                     )
                 )

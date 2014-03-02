@@ -8,6 +8,7 @@ import ch.hoene.perzist.access.mapping.Mapping;
 import ch.hoene.perzist.access.sort.FieldOrder;
 import ch.hoene.perzist.access.sort.SortOrder;
 import ch.hoene.perzist.source.relational.FieldPersistable;
+import ch.hoene.perzist.source.relational.FieldSortOrder;
 import ch.hoene.perzist.source.relational.Table;
 import ch.hoene.perzist.source.relational.View;
 import ch.hoene.perzist.source.sql.query.Select;
@@ -17,6 +18,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public abstract class DatabaseJdbc implements Database<Select, Connection> {
 
@@ -48,15 +50,24 @@ public abstract class DatabaseJdbc implements Database<Select, Connection> {
             Filter<? super PROJECTION> filter,
             ResultCreator<TARGET, RESULT, ResultSet> creator,
             PROJECTION view,
+            TARGET target)
+    {
+        return getList(filter, creator, view, target, new FieldSortOrder[]{});
+    }
+
+    public <RESULT, TARGET extends View, PROJECTION extends View, Z> List<RESULT> getList(
+            Filter<? super PROJECTION> filter,
+            ResultCreator<TARGET, RESULT, ResultSet> creator,
+            PROJECTION view,
             TARGET target,
-            FieldPersistable<? super RESULT, Z>... sortFields)
+            FieldSortOrder<? super RESULT, Z>... sortOrders)
     {
         return OperationExecutor.execute(
                 this,
                 new ReadOperationJdbc<List<RESULT>>(
                     new QueryJdbc<PROJECTION, TARGET, List<RESULT>>(
                             filter,
-                            FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(SortOrder.ASC, sortFields),
+                            FieldOrder.<PROJECTION, RESULT, Z>getMultiFieldOrder(sortOrders),
                             new MappingDistinctJdbc<TARGET, PROJECTION,  RESULT>(view, new CreatorForListJdbc<TARGET, RESULT>(creator), target)
                     )
                 )

@@ -4,10 +4,11 @@ import ch.hoene.perzist.access.filter.FieldFilter;
 import ch.hoene.perzist.access.filter.Filter;
 import ch.hoene.perzist.access.filter.Operator;
 import ch.hoene.perzist.source.relational.FieldPersistable;
+import ch.hoene.perzist.source.relational.FieldSortOrder;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class FieldOrder<PROJECTION, RESULT, TYPE> implements Order<PROJECTION>
@@ -47,13 +48,12 @@ public class FieldOrder<PROJECTION, RESULT, TYPE> implements Order<PROJECTION>
             return new FieldFilter<PROJECTION, RESULT, TYPE>(field, op, value);
     }
 
-    public static <PROJECTION, RESULT, TYPE> Order<PROJECTION> getMultiFieldOrder(SortOrder order,
-                                                FieldPersistable<? super RESULT, TYPE>... fields)
+    public static <PROJECTION, RESULT, TYPE> Order<PROJECTION> getMultiFieldOrder(FieldSortOrder<? super RESULT, TYPE>... sortOrders)
     {
         List<FieldOrder<PROJECTION, RESULT, TYPE>> orders = new ArrayList<FieldOrder<PROJECTION, RESULT, TYPE>>();
-        for(FieldPersistable<? super RESULT, TYPE> field : fields)
+        for(FieldSortOrder<? super RESULT, TYPE> sort : sortOrders)
         {
-            orders.add(new FieldOrder<PROJECTION, RESULT, TYPE>(field, order));
+            orders.add(new FieldOrder<PROJECTION, RESULT, TYPE>(sort.getField(), sort.getSortOrder()));
         }
         return new OrderSet<PROJECTION>(orders);
     }
