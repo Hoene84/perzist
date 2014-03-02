@@ -40,7 +40,7 @@ public class Tables {
 
         @Override
         public List<Field> getFields() {
-            return Arrays.asList(new Field[]{ID});
+            return Arrays.asList(new Field[]{ID, DESC, CATALOG});
         }
     }
 }
