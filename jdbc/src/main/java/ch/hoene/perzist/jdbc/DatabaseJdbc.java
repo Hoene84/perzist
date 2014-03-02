@@ -32,19 +32,19 @@ public abstract class DatabaseJdbc implements Database<Select, Connection> {
     }
 
 
-    protected <TABLE  extends Table> boolean isEmpty(Filter<TABLE> filter, TABLE table)
+    public <TABLE  extends Table> boolean isEmpty(Filter<TABLE> filter, TABLE table)
     {
         return count(filter, table) == 0;
     }
 
-    protected <TABLE extends Table> int count(Filter<TABLE> filter, TABLE table)
+    public <TABLE extends Table> int count(Filter<TABLE> filter, TABLE table)
     {
         return OperationExecutor.execute(
                 this,
                 new ReadOperationJdbc<Integer>(new QueryJdbc<TABLE, TABLE, Integer>(filter, new CounterJdbc(table))));
     }
 
-    protected <RESULT, TARGET extends View, PROJECTION extends View, Z> List<RESULT> getList(
+    public <RESULT, TARGET extends View, PROJECTION extends View, Z> List<RESULT> getList(
             Filter<? super PROJECTION> filter,
             ResultCreator<TARGET, RESULT, ResultSet> creator,
             PROJECTION view,
