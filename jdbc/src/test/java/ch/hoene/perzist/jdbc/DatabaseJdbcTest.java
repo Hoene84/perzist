@@ -2,14 +2,17 @@ package ch.hoene.perzist.jdbc;
 
 import ch.hoene.perzist.access.filter.FieldFilter;
 import ch.hoene.perzist.access.filter.Operator;
+import ch.hoene.perzist.access.sort.SortOrder;
 import ch.hoene.perzist.jdbc.db.Tables;
 import ch.hoene.perzist.jdbc.db.db2instance.Db2Product;
 import ch.hoene.perzist.model.Product;
+import ch.hoene.perzist.source.relational.FieldSortOrder;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static junit.framework.Assert.assertEquals;
@@ -65,7 +68,7 @@ public class DatabaseJdbcTest {
         products.add(new Product(1, "desc1", "cat0"));
         products.add(new Product(2, "desc2", "cat1"));
         products.add(new Product(3, "desc3", "cat1"));
-        products.add(new Product(3, "desc3", "cat1"));
+        products.add(new Product(4, "desc3", "cat1"));
 
         for(Product product : products)
         {
@@ -80,6 +83,7 @@ public class DatabaseJdbcTest {
         }
         assertTrue(productsExpected.size() == 0);
 
+        //with filter
         Set<Product> productsNotExpected = new HashSet<Product>(products);
         storedProducts = database.getList(cat1Filter, new Db2Product(), Tables.PRODUCTS, Tables.PRODUCTS);
         for(Product storedProduct : storedProducts)
@@ -88,7 +92,20 @@ public class DatabaseJdbcTest {
         }
         assertTrue(productsNotExpected.size() == 2);
 
+        //with sort
+        storedProducts = database.getList(null, new Db2Product(), Tables.PRODUCTS, Tables.PRODUCTS, new FieldSortOrder(Tables.Products.DESC, SortOrder.ASC));
+        assertEquals(storedProducts.get(0).getDescription(), "desc0");
+        assertEquals(storedProducts.get(1).getDescription(), "desc1");
+        assertEquals(storedProducts.get(2).getDescription(), "desc2");
+        assertEquals(storedProducts.get(3).getDescription(), "desc3");
+        assertEquals(storedProducts.get(4).getDescription(), "desc3");
 
+        storedProducts = database.getList(null, new Db2Product(), Tables.PRODUCTS, Tables.PRODUCTS, new FieldSortOrder(Tables.Products.DESC, SortOrder.DESC));
+        assertEquals(storedProducts.get(0).getDescription(), "desc3");
+        assertEquals(storedProducts.get(1).getDescription(), "desc3");
+        assertEquals(storedProducts.get(2).getDescription(), "desc2");
+        assertEquals(storedProducts.get(3).getDescription(), "desc1");
+        assertEquals(storedProducts.get(4).getDescription(), "desc0");
     }
 
     @Test
