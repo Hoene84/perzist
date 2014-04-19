@@ -7,6 +7,7 @@ import ch.hoene.perzist.jdbc.db.Tables;
 import ch.hoene.perzist.jdbc.db.db2instance.Db2Product;
 import ch.hoene.perzist.model.Product;
 import ch.hoene.perzist.source.relational.FieldSortOrder;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,6 +34,11 @@ public class DatabaseJdbcTest {
     @Before
     public void setUp() throws Exception {
         database.create();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        database.drop(Tables.PRODUCTS);
     }
 
     @Test
@@ -110,6 +116,7 @@ public class DatabaseJdbcTest {
 
     @Test
     public void testDrop() throws Exception {
-        assertTrue(false);
+        database.drop(Tables.PRODUCTS);
+        database.create();
     }
 }
