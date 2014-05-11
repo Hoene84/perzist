@@ -23,37 +23,25 @@ import ch.hoene.perzist.source.sql.query.WhereClause;
 import ch.hoene.perzist.source.sql.query.WhereClauseField;
 
 
-public class QueryRelational<PROJECTION, TARGET, RESULT, CURSOR> extends Query<Select, WhereClause, OrderClause, RESULT, CURSOR, TARGET, PROJECTION>
+public class QueryRelational<PROJECTION, TARGET, RESULT, CURSOR> extends Query<QueryBuilder, WhereClause, OrderClause, RESULT, CURSOR, TARGET, PROJECTION>
 {
-     private final Mapping<Select, RESULT, CURSOR> mapping;
+     private final Mapping<QueryBuilder, RESULT, CURSOR> mapping;
 
-     public QueryRelational(Mapping<Select, RESULT, CURSOR> mapping)
+     public QueryRelational(Mapping<QueryBuilder, RESULT, CURSOR> mapping)
      {
           this.mapping = mapping;
      }
 
-     public QueryRelational(Filter<? super PROJECTION> filter, Mapping<Select, RESULT, CURSOR> mapping)
-     {
-          super(filter);
-          this.mapping = mapping;
-     }
-
-     public QueryRelational(Order<? super PROJECTION> order, Mapping<Select, RESULT, CURSOR> mapping)
-     {
-          super(order);
-          this.mapping = mapping;
-     }
-
-     public QueryRelational(Filter<? super PROJECTION> filter, Order<? super PROJECTION> order, Mapping<Select, RESULT, CURSOR> mapping)
+     public QueryRelational(Filter<? super PROJECTION> filter, Order<? super PROJECTION> order, Mapping<QueryBuilder, RESULT, CURSOR> mapping)
     {
         super(filter, order);
 
           this.mapping = mapping;
     }
 
-    public Select get()
+    public QueryBuilder get()
     {
-        Select sql = mapping.get();
+        QueryBuilder sql = mapping.get();
 
         if(getFilter() != null){
             sql.setWhereClause(getFilter().accept(this));

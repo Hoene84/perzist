@@ -71,19 +71,6 @@ public abstract class DatabaseSqlLite implements Database<Select, SQLiteDatabase
         );
     }
 
-    /**
-     * @return inserted Rows
-     */
-    public <INSTANCE> int push(final INSTANCE instance, Mapping<Table, ContentValues, INSTANCE> instanceToDbMapper)
-    {
-        return OperationExecutor.execute(this, new InsertOperationSqlLite<INSTANCE>(instanceToDbMapper), instance);
-    }
-
-    public void drop(final Table table)
-    {
-        OperationExecutor.execute(this, new DeleteTableContentSqlLite(), table);
-    }
-
     public <I> I read(Database.DbReadOp<I, SQLiteDatabase> readOp)
     {
         return readOp.read(db);
@@ -92,6 +79,6 @@ public abstract class DatabaseSqlLite implements Database<Select, SQLiteDatabase
     public <I> int write(DbWriteOp<SQLiteDatabase, I> writeOp,
                          I instance)
     {
-        return writeOp.write(db, instance);
+        throw new UnsupportedOperationException();
     }
 }

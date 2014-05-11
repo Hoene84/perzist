@@ -1,6 +1,7 @@
 package ch.hoene.perzist.source.sql.query;
 
 import ch.hoene.perzist.source.relational.Field;
+import ch.hoene.perzist.source.relational.QueryBuilder;
 import ch.hoene.perzist.source.relational.View;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 
 
 
-public class Select implements Sql
+public class Select implements Sql, QueryBuilder
 {
     private final String sql;
     private WhereClause whereClause;
